@@ -1,0 +1,18 @@
+--- a/auto/unix
++++ b/auto/unix
+@@ -164,11 +164,11 @@
+     ngx_feature="crypt() in libcrypt"
+     ngx_feature_name=
+     ngx_feature_run=no
+-    ngx_feature_incs=
+-    ngx_feature_path=
+-    ngx_feature_libs=-lcrypt
++    ngx_feature_incs="#include <crypt.h>"
++    ngx_feature_path="${ARCH_INSTALL_DIR}/include"
++    ngx_feature_libs="-L${ARCH_INSTALL_DIR}/lib -lcrypt -lssl -lcrypto"
+     . auto/feature
+
+     if [ $ngx_found = yes ]; then
+-        CRYPT_LIB="-lcrypt"
++        CRYPT_LIB="-L${ARCH_INSTALL_DIR}/lib -lcrypt -lssl -lcrypto"
+     fi
