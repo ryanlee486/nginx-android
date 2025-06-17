@@ -1,5 +1,5 @@
 /* DIY libcrypt implementation for Android nginx build
- * Compatible with libxcrypt API and behavior
+ * Compatible with standard Unix crypt API and behavior
  * Uses OpenSSL SHA256 for reliable password hashing
  */
 
@@ -219,7 +219,7 @@ char *crypt(const char *phrase, const char *setting) {
     return crypt_r(phrase, setting, &static_data);
 }
 
-/* Extended crypt functions for libxcrypt compatibility */
+/* Extended crypt functions for compatibility */
 char *crypt_rn(const char *phrase, const char *setting, void *data, int size) {
     if (size < 0 || (size_t)size < sizeof(struct crypt_data)) {
         errno = ERANGE;

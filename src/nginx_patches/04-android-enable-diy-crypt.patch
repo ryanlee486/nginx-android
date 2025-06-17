@@ -7,14 +7,14 @@
 -ngx_feature_path=
 -ngx_feature_libs=-lcrypt
 +ngx_feature_path="${ARCH_INSTALL_DIR}/include"
-+ngx_feature_libs="-L${ARCH_INSTALL_DIR}/lib -lcrypt"
++ngx_feature_libs="-L${ARCH_INSTALL_DIR}/lib -lcrypt -lssl -lcrypto"
  ngx_feature_test="struct crypt_data  cd;
                    crypt_r(\"key\", \"salt\", &cd);"
  . auto/feature
- 
+
  if [ $ngx_found = yes ]; then
 -    CRYPT_LIB="-lcrypt"
-+    CRYPT_LIB="-L${ARCH_INSTALL_DIR}/lib -lcrypt"
++    CRYPT_LIB="-L${ARCH_INSTALL_DIR}/lib -lcrypt -lssl -lcrypto"
  fi
  
  

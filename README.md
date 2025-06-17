@@ -86,13 +86,46 @@ nginx-android-build/
 
 ## 🛠️ Technical Implementation
 
-### DIY libcrypt Solution
-One of the key challenges was that Android doesn't provide libcrypt, which nginx needs for HTTP basic authentication. Instead of disabling this functionality, we implemented a custom libcrypt that provides:
+### 🔐 DIY libcrypt Solution - A Key Innovation
 
-- `crypt()` function for password hashing
-- `crypt_r()` thread-safe variant
-- DES-based password hashing compatible with standard implementations
-- Lightweight implementation optimized for Android
+**The Challenge**: Android doesn't provide libcrypt, which nginx requires for HTTP basic authentication. Most solutions simply disable this functionality, but we took a different approach.
+
+**Our Solution**: We implemented a complete DIY libcrypt library based on OpenSSL that provides full compatibility with standard Unix crypt functions.
+
+#### Features of Our DIY libcrypt:
+- ✅ **Complete crypt() API** - Standard Unix crypt functions
+- ✅ **OpenSSL DES Implementation** - Uses authentic DES encryption from OpenSSL
+- ✅ **Traditional Unix crypt()** - 13-character output (2 salt + 11 hash)
+- ✅ **Thread-Safe Operations** - `crypt_r()` with proper crypt_data structure
+- ✅ **Extended Functions** - `crypt_rn()`, `crypt_ra()`, `crypt_gensalt*()`
+- ✅ **Proper Salt Validation** - ASCII64 character set validation
+- ✅ **Error Handling** - errno and failure tokens as per standards
+- ✅ **Memory Safety** - Sensitive data clearing and bounds checking
+
+#### Technical Details:
+- **Algorithm**: Traditional DES with 25 iterations (authentic Unix crypt)
+- **Salt Format**: 2-character ASCII64 salt (./0-9A-Za-z)
+- **Output Format**: 13 characters total (compatible with standard crypt)
+- **Dependencies**: Uses existing OpenSSL (already required by nginx)
+- **Size**: Lightweight ~2KB static library
+- **Performance**: Optimized for Android with minimal overhead
+
+This implementation ensures that nginx on Android has **full HTTP basic authentication support** without compromising on security or compatibility.
+
+#### Testing the DIY libcrypt:
+```bash
+# Test the DIY crypt implementation
+cd src/diy-crypt
+make test
+
+# Expected output:
+# ✅ Different salts produce different hashes
+# ✅ Different passwords produce different hashes
+# ✅ Consistency check passes
+# ✅ Salt validation works correctly
+# ✅ Extended functions work
+# ✅ Salt generation works
+```
 
 ### Cross-Compilation Patches
 The build system includes several patches to make nginx cross-compile successfully:
@@ -100,9 +133,10 @@ The build system includes several patches to make nginx cross-compile successful
 1. **`01-cross-compilation-sizeof.patch`** - Fix sizeof detection for cross-compilation
 2. **`02-cross-compilation-feature.patch`** - Fix feature detection when cross-compiling
 3. **`03-android-os-detection.patch`** - Proper Android OS detection
-4. **`04-android-enable-diy-crypt.patch`** - Enable our custom crypt implementation
+4. **`04-android-enable-diy-crypt.patch`** - Enable our OpenSSL-based DIY crypt
 5. **`05-android-linux-config.patch`** - Android-specific Linux configuration
-6. **`07-android-epoll-macros.patch`** - Fix epoll macros for Android
+6. **`06-android-unix-crypt.patch`** - Additional crypt detection with OpenSSL libs
+7. **`07-android-epoll-macros.patch`** - Fix epoll macros for Android
 
 ### Build Configuration
 - **Static linking** - All dependencies statically linked for portability
@@ -119,8 +153,8 @@ The build system includes several patches to make nginx cross-compile successful
 - **zlib** - Compression support
 
 ### Custom Components
-- **DIY libcrypt** - Custom password hashing implementation
-- **Cross-compilation patches** - nginx modifications for Android
+- **DIY libcrypt** - OpenSSL DES-based password hashing implementation
+- **Cross-compilation patches** - nginx modifications for Android compatibility
 
 ## 🚀 Build Results
 

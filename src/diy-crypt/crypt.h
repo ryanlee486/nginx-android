@@ -1,5 +1,5 @@
 /* DIY libcrypt implementation for Android nginx build
- * Compatible with libxcrypt API and behavior
+ * Compatible with standard Unix crypt API and behavior
  */
 
 #ifndef _CRYPT_H
