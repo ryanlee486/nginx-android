@@ -42,12 +42,15 @@ build_diy_crypt() {
     # Just set PREFIX for the Makefile to the architecture-specific directory
     export PREFIX="${ARCH_INSTALL_DIR}"
 
+    # Add OpenSSL include path to CFLAGS
+    export CFLAGS="$CFLAGS -I${ARCH_INSTALL_DIR}/include"
+
     # Debug: Print environment variables
     echo "CC: $CC"
     echo "AR: $AR"
     echo "CFLAGS: $CFLAGS"
     echo "PREFIX: $PREFIX"
-    
+
     # Build static library
     make clean
     make static
