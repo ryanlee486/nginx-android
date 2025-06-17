@@ -1,0 +1,48 @@
+types {
+    text/html                             html htm shtml;
+    text/css                              css;
+    text/xml                              xml;
+    image/gif                             gif;
+    image/jpeg                            jpeg jpg;
+    image/png                             png;
+    image/svg+xml                         svg svgz;
+    image/webp                            webp;
+    image/x-icon                          ico;
+    application/javascript                js;
+    application/json                      json;
+    application/xml                       xml;
+    application/rss+xml                   rss;
+    application/atom+xml                  atom;
+    application/pdf                       pdf;
+    application/zip                       zip;
+    application/gzip                      gz;
+    application/x-tar                     tar;
+    application/x-rar-compressed          rar;
+    application/x-7z-compressed           7z;
+    application/octet-stream              bin exe dll;
+    application/octet-stream              deb;
+    application/octet-stream              dmg;
+    application/octet-stream              iso img;
+    application/octet-stream              msi msp msm;
+    
+    audio/mpeg                            mp3;
+    audio/ogg                             ogg;
+    audio/x-wav                           wav;
+    audio/mp4                             m4a;
+    
+    video/mp4                             mp4;
+    video/mpeg                            mpeg mpg;
+    video/quicktime                       mov;
+    video/x-flv                           flv;
+    video/x-mng                           mng;
+    video/x-ms-asf                        asx asf;
+    video/x-ms-wmv                        wmv;
+    video/x-msvideo                       avi;
+    video/webm                            webm;
+    
+    font/woff                             woff;
+    font/woff2                            woff2;
+    font/ttf                              ttf;
+    font/otf                              otf;
+    application/vnd.ms-fontobject         eot;
+}

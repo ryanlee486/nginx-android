@@ -1,0 +1,24 @@
+--- a/src/event/modules/ngx_epoll_module.c
++++ b/src/event/modules/ngx_epoll_module.c
+@@ -591,9 +591,11 @@
+     if (event == NGX_READ_EVENT) {
+         e = c->write;
+         prev = EPOLLOUT;
++/*
+ #if (NGX_READ_EVENT != EPOLLIN|EPOLLRDHUP)
+         events = EPOLLIN|EPOLLRDHUP;
+ #endif
++*/
+
+     } else {
+         e = c->read;
+@@ -601,6 +603,8 @@
+         prev = EPOLLIN|EPOLLRDHUP;
++/*
+ #if (NGX_WRITE_EVENT != EPOLLOUT)
+         events = EPOLLOUT;
+ #endif
++*/
+     }
+
+     if (e->active) {

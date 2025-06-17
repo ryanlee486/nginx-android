@@ -1,0 +1,114 @@
+# Build outputs and intermediate files
+build/
+
+# Cloned source code repositories
+nginx/
+openssl/
+pcre2/
+zlib/
+src/libxcrypt/
+src/ngx_brotli/
+
+# Backup files created during patching
+*.orig
+*.rej
+
+# macOS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.vim/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Android specific
+*.apk
+*.ap_
+*.dex
+*.class
+local.properties
+
+# Compiled binaries
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+
+# Archive files
+*.tar
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.zip
+*.rar
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Node.js (if used for testing)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if used for scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Test outputs
+test-results/
+coverage/
+*.coverage
+
+# Certificates and keys (if generated)
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Autotools
+autom4te.cache/
+config.log
+config.status
+configure
+Makefile.in
+aclocal.m4
+
+# pkg-config
+*.pc
+
+# Documentation builds
+docs/_build/
+site/

@@ -1,0 +1,20 @@
+--- a/auto/os/linux
++++ b/auto/os/linux
+@@ -222,14 +222,14 @@
+ ngx_feature_name="NGX_HAVE_GNU_CRYPT_R"
+ ngx_feature_run=no
+ ngx_feature_incs="#include <crypt.h>"
+-ngx_feature_path=
+-ngx_feature_libs=-lcrypt
++ngx_feature_path="${ARCH_INSTALL_DIR}/include"
++ngx_feature_libs="-L${ARCH_INSTALL_DIR}/lib -lcrypt"
+ ngx_feature_test="struct crypt_data  cd;
+                   crypt_r(\"key\", \"salt\", &cd);"
+ . auto/feature
+ 
+ if [ $ngx_found = yes ]; then
+-    CRYPT_LIB="-lcrypt"
++    CRYPT_LIB="-L${ARCH_INSTALL_DIR}/lib -lcrypt"
+ fi
+ 
+ 

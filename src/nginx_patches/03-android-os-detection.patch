@@ -1,0 +1,32 @@
+--- a/auto/configure
++++ b/auto/configure
+@@ -30,6 +30,13 @@
+     NGX_SYSTEM=`uname -s 2>/dev/null`
+     NGX_RELEASE=`uname -r 2>/dev/null`
+     NGX_MACHINE=`uname -m 2>/dev/null`
++
++    # Force Linux for Android cross-compilation
++    if [ "$NGX_CROSSBUILD" = "crossbuild" ]; then
++        NGX_SYSTEM="Linux"
++        NGX_RELEASE="5.4.0"
++        NGX_MACHINE="$ANDROID_ARCH"
++    fi
+
+     echo " + $NGX_SYSTEM $NGX_RELEASE $NGX_MACHINE"
+
+--- a/auto/os/conf
++++ b/auto/os/conf
+@@ -22,7 +22,12 @@
+     ;;
+
+     Darwin:*)
+-        . auto/os/darwin
++        # Force Linux for cross-compilation
++        if [ "$NGX_CROSSBUILD" = "crossbuild" ]; then
++            . auto/os/linux
++        else
++            . auto/os/darwin
++        fi
+     ;;
+
+     win32)

@@ -1,0 +1,21 @@
+--- a/src/os/unix/ngx_linux_config.h
++++ b/src/os/unix/ngx_linux_config.h
+@@ -52,7 +52,7 @@
+ #include <malloc.h>             /* memalign() */
+ #include <limits.h>             /* IOV_MAX */
+ #include <sys/ioctl.h>
+-#include <crypt.h>
++#include <crypt.h>
+ #include <sys/utsname.h>        /* uname() */
+
+ #include <dlfcn.h>
+@@ -129,4 +129,9 @@
+ extern char **environ;
+
+
++/* Android-specific fixes */
++#ifndef NGX_CPU_CACHE_LINE
++#define NGX_CPU_CACHE_LINE  64
++#endif
++
+ #endif /* _NGX_LINUX_CONFIG_H_INCLUDED_ */

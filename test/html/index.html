@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nginx Android Test Server</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 nginx for Android</h1>
+            <p>HTTP/2, HTTP/3, TLS 1.3, and QUIC Test Server</p>
+        </header>
+        
+        <main>
+            <section class="protocol-tests">
+                <h2>Protocol Tests</h2>
+                <div class="test-grid">
+                    <div class="test-card">
+                        <h3>HTTP/1.1</h3>
+                        <p>Port: 8080</p>
+                        <button onclick="testProtocol('http', 8080)">Test HTTP/1.1</button>
+                        <div id="http-result" class="result"></div>
+                    </div>
+                    
+                    <div class="test-card">
+                        <h3>HTTP/2</h3>
+                        <p>Port: 8443 (HTTPS)</p>
+                        <button onclick="testProtocol('https', 8443)">Test HTTP/2</button>
+                        <div id="https-result" class="result"></div>
+                    </div>
+                    
+                    <div class="test-card">
+                        <h3>HTTP/3</h3>
+                        <p>Port: 8444 (QUIC)</p>
+                        <button onclick="testProtocol('https', 8444)">Test HTTP/3</button>
+                        <div id="quic-result" class="result"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="features">
+                <h2>Features</h2>
+                <ul>
+                    <li>✅ nginx latest stable version</li>
+                    <li>✅ OpenSSL with TLS 1.3 support</li>
+                    <li>✅ HTTP/2 server push</li>
+                    <li>✅ HTTP/3 and QUIC protocol</li>
+                    <li>✅ Brotli and Gzip compression</li>
+                    <li>✅ Static file serving</li>
+                    <li>✅ Security headers</li>
+                </ul>
+            </section>
+            
+            <section class="server-info">
+                <h2>Server Information</h2>
+                <div id="server-info">
+                    <p>Loading server information...</p>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>nginx for Android Build System</p>
+        </footer>
+    </div>
+    
+    <script src="/js/app.js"></script>
+</body>
+</html>
