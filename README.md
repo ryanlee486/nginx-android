@@ -32,21 +32,34 @@ A complete cross-compilation setup for building nginx for Android using Android 
 # Set your Android NDK path
 export ANDROID_NDK_ROOT=~/Library/Android/sdk/ndk/27.0.12077973
 
-# Build dependencies for all architectures
-./scripts/build-all-deps.sh
-
-# Build nginx for all architectures
-./scripts/build-nginx.sh
+# Build nginx for all architectures (this handles everything automatically)
+./scripts/build-android.sh
 ```
 
 ### Build Specific Architecture
 
 ```bash
-# Build dependencies for specific architecture
-./scripts/build-all-deps.sh arm64-v8a
+# Set your Android NDK path
+export ANDROID_NDK_ROOT=~/Library/Android/sdk/ndk/27.0.12077973
 
-# Build nginx for specific architecture
-./scripts/build-nginx.sh arm64-v8a
+# Build nginx for specific architecture only
+./scripts/build-android.sh --arch arm64-v8a
+```
+
+### Build Options
+
+```bash
+# Clean build (remove previous build artifacts)
+./scripts/build-android.sh --clean
+
+# Skip dependency cloning (if already done)
+./scripts/build-android.sh --skip-deps
+
+# Combine options
+./scripts/build-android.sh --clean --arch x86_64
+
+# Get help
+./scripts/build-android.sh --help
 ```
 
 ## 📁 Project Structure
@@ -74,8 +87,9 @@ nginx-android-build/
 ## 🔧 Build Scripts
 
 ### Core Build Scripts
+- **`build-android.sh`** - Main build script that orchestrates the entire build process
 - **`android-config.sh`** - Android NDK toolchain configuration and setup
-- **`build-all-deps.sh`** - Build all dependencies for specified architectures
+- **`clone-deps.sh`** - Clone all source dependencies
 - **`build-nginx.sh`** - Build nginx with cross-compilation patches
 - **`build-diy-crypt.sh`** - Build custom libcrypt implementation
 
@@ -83,6 +97,13 @@ nginx-android-build/
 - **`build-openssl.sh`** - Build OpenSSL for Android
 - **`build-pcre2.sh`** - Build PCRE2 regular expression library
 - **`build-zlib.sh`** - Build zlib compression library
+- **`build-libxcrypt.sh`** - Build alternative libxcrypt (optional)
+
+### Utility Scripts
+- **`test.sh`** - Test the built nginx binaries
+- **`deploy.sh`** - Deploy nginx to Android device
+- **`generate-certs.sh`** - Generate SSL certificates for testing
+- **`generate-test-content.sh`** - Generate test content for nginx
 
 ## 🛠️ Technical Implementation
 
@@ -160,7 +181,19 @@ The build system includes several patches to make nginx cross-compile successful
 
 After successful build, you'll find nginx binaries at:
 ```
-build/install/{architecture}/nginx/sbin/nginx
+build/install/{architecture}/data/local/tmp/nginx/sbin/nginx
+```
+
+The complete installation structure:
+```
+build/install/{architecture}/
+├── data/local/tmp/nginx/
+│   ├── sbin/nginx           # Main nginx binary
+│   ├── conf/                # Configuration files
+│   ├── html/                # Default web content
+│   └── logs/                # Log directory
+├── lib/                     # Static libraries (OpenSSL, zlib, PCRE2, libcrypt)
+└── include/                 # Header files
 ```
 
 ### Binary Sizes (Optimized)
