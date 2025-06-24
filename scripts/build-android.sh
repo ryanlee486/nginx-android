@@ -96,8 +96,12 @@ echo -e "${GREEN}Step 3: Building zlib...${NC}"
 echo -e "${GREEN}Step 4: Building PCRE2...${NC}"
 "${SCRIPT_DIR}/build-pcre2.sh"
 
-# Step 5: Build DIY crypt
-echo -e "${GREEN}Step 5: Building DIY crypt...${NC}"
+# Step 5: Build Brotli
+echo -e "${GREEN}Step 5: Building Brotli...${NC}"
+"${SCRIPT_DIR}/build-brotli.sh"
+
+# Step 6: Build DIY crypt
+echo -e "${GREEN}Step 6: Building DIY crypt...${NC}"
 if [ -n "$TARGET_ARCH" ]; then
     "${SCRIPT_DIR}/build-diy-crypt.sh" "$TARGET_ARCH"
 else
@@ -106,8 +110,8 @@ else
     done
 fi
 
-# Step 6: Build nginx
-echo -e "${GREEN}Step 6: Building nginx...${NC}"
+# Step 7: Build nginx
+echo -e "${GREEN}Step 7: Building nginx...${NC}"
 "${SCRIPT_DIR}/build-nginx.sh"
 
 # Build summary
@@ -145,6 +149,13 @@ for arch in $ANDROID_ARCHS; do
         echo -e "  PCRE2: ${GREEN}✓${NC}"
     else
         echo -e "  PCRE2: ${RED}✗${NC}"
+    fi
+    
+    # Check Brotli
+    if [ -f "${install_dir}/lib/libbrotlienc-static.a" ] && [ -f "${install_dir}/lib/libbrotlidec-static.a" ]; then
+        echo -e "  Brotli: ${GREEN}✓${NC}"
+    else
+        echo -e "  Brotli: ${RED}✗${NC}"
     fi
 
     # Check DIY crypt

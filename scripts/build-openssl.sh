@@ -81,6 +81,7 @@ build_openssl_arch() {
         no-tests \
         no-ui-console \
         no-asm \
+        enable-quic \
         -fPIC \
         -Os \
         CC="$CC" \

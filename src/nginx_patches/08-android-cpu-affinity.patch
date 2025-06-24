@@ -1,0 +1,34 @@
+--- a/src/os/unix/ngx_setaffinity.h
++++ b/src/os/unix/ngx_setaffinity.h
+@@ -7,7 +7,12 @@
+ #define _NGX_SETAFFINITY_H_INCLUDED_
+ 
+ 
+-#if (NGX_HAVE_SCHED_SETAFFINITY || NGX_HAVE_CPUSET_SETAFFINITY)
++/* Disable CPU affinity on Android due to missing cpu_set_t */
++#if defined(__ANDROID__)
++#define NGX_HAVE_CPU_AFFINITY 0
++#define ngx_setaffinity(cpu_affinity, log)
++typedef uint64_t  ngx_cpuset_t;
++#elif (NGX_HAVE_SCHED_SETAFFINITY || NGX_HAVE_CPUSET_SETAFFINITY)
+ 
+ #define NGX_HAVE_CPU_AFFINITY 1
+ 
+--- a/src/os/unix/ngx_setaffinity.c
++++ b/src/os/unix/ngx_setaffinity.c
+@@ -7,6 +7,10 @@
+ #include <ngx_config.h>
+ #include <ngx_core.h>
+ 
++/* Skip CPU affinity functions on Android */
++#if defined(__ANDROID__)
++/* CPU affinity disabled for Android */
++#else
+ 
+ #if (NGX_HAVE_CPUSET_SETAFFINITY)
+ 
+@@ -52,3 +56,4 @@
+ }
+ 
+ #endif
++#endif /* __ANDROID__ */ 

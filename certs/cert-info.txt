@@ -2,59 +2,60 @@ Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            4a:d0:c8:00:32:3a:9b:92:1f:0b:46:7a:32:84:9e:60:f7:04:9b:0a
+            7d:0e:87:df:ed:86:e7:23:14:54:51:3b:67:1d:07:f3:1c:ff:cf:7e
         Signature Algorithm: sha256WithRSAEncryption
-        Issuer: C=US, ST=CA, L=San Francisco, O=nginx Android Test, OU=IT Department, CN=localhost, emailAddress=test@example.com
+        Issuer: C = US, ST = CA, L = San Francisco, O = nginx Android Test, OU = IT Department, CN = localhost, emailAddress = test@example.com
         Validity
-            Not Before: Jun 17 12:10:06 2025 GMT
-            Not After : Jun 17 12:10:06 2026 GMT
-        Subject: C=US, ST=CA, L=San Francisco, O=nginx Android Test, OU=IT Department, CN=localhost, emailAddress=test@example.com
+            Not Before: Jun 24 10:22:58 2025 GMT
+            Not After : Jun 24 10:22:58 2026 GMT
+        Subject: C = US, ST = CA, L = San Francisco, O = nginx Android Test, OU = IT Department, CN = localhost, emailAddress = test@example.com
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
-                Public-Key: (2048 bit)
+                RSA Public-Key: (2048 bit)
                 Modulus:
-                    00:d6:a2:07:08:01:82:b7:77:48:02:81:0f:26:8d:
-                    b8:f9:f2:39:14:24:99:3f:03:f8:61:c2:f7:50:0f:
-                    01:84:87:88:cf:ad:90:13:ba:f4:ac:0b:de:8a:58:
-                    61:65:9b:a6:f8:ff:80:e0:35:3c:41:4a:10:ad:de:
-                    db:d3:1e:8a:04:2a:fd:e1:5c:f2:09:fc:5e:0b:5d:
-                    74:81:71:6c:b0:83:03:28:6c:33:36:7d:ae:17:e6:
-                    4c:53:af:e4:4f:8a:78:39:06:d8:13:26:1a:10:cc:
-                    18:e0:81:f0:89:3b:15:b6:42:62:cf:b2:a5:ad:2e:
-                    55:50:5d:f4:48:5c:28:09:4e:53:cc:c0:52:ed:4d:
-                    23:f3:eb:26:8c:f6:79:9f:b0:4f:a0:87:31:85:be:
-                    66:9e:f1:b0:fe:f9:1b:17:14:5e:aa:54:ea:a1:3c:
-                    3e:98:8f:7c:ca:14:08:1a:7f:3d:94:d2:72:2c:6f:
-                    58:f0:97:eb:23:d7:b2:a0:6a:1e:a8:e6:9a:06:8d:
-                    85:df:6f:ff:bb:2e:bf:7a:a4:3b:16:9f:c1:e2:e7:
-                    3b:81:03:2f:a1:85:4a:86:f9:77:52:07:b1:16:7f:
-                    e8:24:b9:38:4b:6c:d0:0b:75:19:5b:ff:01:79:f5:
-                    5e:bb:2e:78:cb:10:42:b6:f1:37:92:2a:39:3b:8c:
-                    59:1d
+                    00:bd:25:0b:72:86:20:6f:f2:f0:7f:0f:be:39:c5:
+                    f1:5b:c3:3b:ea:23:6e:0d:2e:bc:2e:3d:56:d6:21:
+                    67:8c:fa:01:a2:51:2f:e1:51:86:56:6c:d6:af:b2:
+                    07:66:d4:2b:07:3d:0b:88:c5:0b:8b:2f:91:0b:76:
+                    65:ac:31:dc:27:c1:bc:80:8a:40:26:fd:ed:d6:69:
+                    3e:7e:55:a7:19:ae:83:11:70:6a:ee:90:8f:e9:1e:
+                    fb:4b:67:f5:c5:cb:3e:17:4b:a5:06:d2:ff:28:6f:
+                    ec:9d:40:09:bb:b5:14:28:35:ad:17:9b:ad:03:06:
+                    4b:49:de:8e:b1:52:66:34:b9:18:6e:bf:d2:64:89:
+                    62:1e:1a:40:ae:5c:9f:58:0b:6e:9b:0f:5a:06:47:
+                    8f:2d:ba:1d:64:06:e2:84:14:bf:2a:d7:50:18:8c:
+                    4b:b7:f6:d8:92:de:7b:d8:e9:b5:ba:16:24:d0:cf:
+                    36:43:46:db:61:19:8a:cc:63:49:5e:6e:d2:48:b7:
+                    b4:12:b6:eb:1f:a3:87:f6:09:39:d9:e1:6f:5d:f8:
+                    d6:cc:d1:39:14:48:cf:5b:ca:a5:e5:92:14:03:67:
+                    7b:04:a1:29:bd:4d:df:31:e4:30:fe:e8:7f:4a:f4:
+                    6e:d7:62:5e:0b:38:08:e7:bf:bd:c2:5d:05:05:56:
+                    71:f3
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
+            X509v3 Authority Key Identifier: 
+                DirName:/C=US/ST=CA/L=San Francisco/O=nginx Android Test/OU=IT Department/CN=localhost/emailAddress=test@example.com
+                serial:7D:0E:87:DF:ED:86:E7:23:14:54:51:3B:67:1D:07:F3:1C:FF:CF:7E
+
             X509v3 Basic Constraints: 
                 CA:FALSE
             X509v3 Key Usage: 
                 Digital Signature, Non Repudiation, Key Encipherment, Data Encipherment
             X509v3 Subject Alternative Name: 
                 DNS:localhost, DNS:*.localhost, DNS:127.0.0.1, DNS:::1, IP Address:127.0.0.1, IP Address:0:0:0:0:0:0:0:1, IP Address:10.0.2.15, IP Address:192.168.1.100
-            X509v3 Subject Key Identifier: 
-                2A:DD:D6:BB:C8:8E:81:AC:10:B4:E9:AC:29:89:5B:E6:04:59:39:61
     Signature Algorithm: sha256WithRSAEncryption
-    Signature Value:
-        6f:a2:fe:3a:03:ba:01:d1:90:56:53:cb:8d:48:21:15:4a:95:
-        a2:e7:df:d3:66:93:82:9a:bc:b5:5f:ec:f3:9b:25:df:b2:80:
-        84:60:aa:ab:84:97:d4:c7:98:d1:6c:a0:32:04:4d:ac:36:8b:
-        09:4e:65:1f:e0:df:96:50:9b:ce:ad:1d:3c:5d:8c:cb:36:ca:
-        7f:c5:33:6f:f2:cd:26:33:7a:5b:e3:62:5e:b8:24:21:8d:4a:
-        f3:7b:1f:78:0a:1f:8b:c3:3a:c6:a1:50:c6:55:6f:48:77:02:
-        b0:c2:87:c3:a1:b9:78:61:4b:5d:b0:be:a3:cf:34:90:52:33:
-        87:99:48:9b:8c:c7:ef:66:8f:88:2e:f7:d1:a6:00:1d:1d:e0:
-        29:c8:b7:72:15:b0:ac:92:7d:dd:27:6e:19:96:06:92:35:29:
-        f4:a7:e9:58:d7:79:ed:c6:b6:9a:ba:34:ca:e6:b0:9c:21:2b:
-        5e:5d:f9:31:90:5d:f3:5d:7d:f9:79:e1:a1:1d:9b:65:c8:db:
-        10:b6:44:bb:a8:f3:e9:60:a3:af:ad:ca:c2:f7:55:a3:98:41:
-        d6:62:8b:c8:37:7c:e5:0d:84:a6:67:d1:ed:99:bf:c8:ba:ac:
-        08:f3:d7:07:42:e2:59:a3:89:ad:cf:38:2b:ba:cb:d4:26:f4:
-        6b:0c:ea:03
+         7e:96:ea:58:ba:0d:90:fe:ab:e5:53:62:7c:95:e2:70:d0:58:
+         38:70:7a:b6:fd:c1:6f:d2:f4:1e:31:cb:a4:f4:a0:23:6b:fd:
+         1a:1e:8e:3a:f3:e0:44:b4:0c:d5:12:61:e0:c1:fd:82:9e:db:
+         50:0a:21:7a:7d:38:62:c0:73:32:d1:e9:9e:d8:31:e6:cc:8f:
+         a8:31:e3:2b:d3:98:4d:93:51:4a:49:aa:f5:b2:cf:94:66:fc:
+         87:c9:4c:fa:2d:dc:a5:21:e4:62:67:7f:9d:7b:f7:e0:3b:41:
+         39:41:bf:f9:ea:41:55:36:b4:da:be:80:22:a8:c7:77:ae:5b:
+         4e:09:ab:26:56:7e:fb:b1:5b:6d:ed:67:ec:dd:42:e3:3c:0b:
+         5b:e0:4e:38:2e:62:21:2a:d4:3f:b5:91:93:f7:86:f1:ad:d5:
+         0b:83:ad:50:86:ae:22:ec:20:43:54:9f:9f:a6:83:2a:41:bc:
+         b2:da:44:11:ba:e3:be:59:b2:da:68:fa:b4:41:6a:3d:a3:43:
+         82:ec:7b:be:e8:91:03:cf:a6:2a:77:bc:34:47:d2:09:b7:ef:
+         b2:7d:de:00:37:ca:d6:b7:07:4b:38:45:d8:7c:d7:bc:aa:d2:
+         dd:09:df:12:cc:e0:9d:9d:dc:1a:21:61:bb:cc:57:76:1d:40:
+         9e:bb:f9:0f
