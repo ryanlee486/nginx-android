@@ -5,6 +5,9 @@
 
 set -e
 
+# Add Android SDK tools to PATH
+export PATH="$HOME/Library/Android/sdk/emulator:$HOME/Library/Android/sdk/platform-tools:$PATH"
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'

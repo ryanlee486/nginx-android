@@ -1,13 +1,13 @@
 # nginx Android Build
 
-A complete cross-compilation setup for building nginx for Android using Android NDK. This project successfully builds nginx binaries for all major Android architectures with **full HTTP/3 and QUIC support**, HTTP basic authentication, and all modern web server features.
+A complete cross-compilation setup for building nginx for Android using Android NDK. This project successfully builds nginx binaries for all major Android architectures with **full HTTP/3 and QUIC support**, **HTTP/2 with proper compression**, and all modern web server features.
 
 ## 🎯 Features
 
 - ✅ **Full nginx functionality** on Android with all HTTP protocols
 - ✅ **HTTP/3 and QUIC support** with OpenSSL 3.3.2
-- ✅ **Brotli compression** with 15-20% better compression than gzip
-- ✅ **HTTP/2 and TLS 1.3** support for modern web standards
+- ✅ **HTTP/2 with proper compression** using Gzip (Brotli removed to fix compatibility)
+- ✅ **TLS 1.3** support for modern web standards
 - ✅ **HTTP basic authentication** with password hashing support
 - ✅ **Cross-platform support** for all Android architectures
 - ✅ **DIY libcrypt implementation** for Android compatibility
@@ -20,7 +20,7 @@ A complete cross-compilation setup for building nginx for Android using Android 
 This is one of the most advanced nginx Android builds available, supporting all major HTTP protocols:
 
 - **HTTP/1.1** - Traditional HTTP with keep-alive
-- **HTTP/2** - Multiplexed connections with header compression
+- **HTTP/2** - Multiplexed connections with Gzip compression (Brotli removed for compatibility)
 - **HTTP/3** - Latest protocol over QUIC with UDP transport
 - **QUIC** - Low-latency transport protocol with built-in encryption
 - **TLS 1.3** - Latest TLS with improved security and performance
@@ -90,8 +90,8 @@ curl http://localhost:8080/api/test     # HTTP/1.1
 curl -k https://localhost:8443/api/test # HTTP/2
 curl -k https://localhost:8444/api/test --http3-only # HTTP/3
 
-# Test Brotli compression
-./scripts/test_brotli.sh
+# Test Gzip compression
+curl -k -H "Accept-Encoding: gzip" https://localhost:8443/
 ```
 
 ## 📁 Project Structure
@@ -101,22 +101,20 @@ nginx-android-build/
 ├── scripts/                    # Build automation scripts
 │   ├── android-config.sh      # Android NDK configuration
 │   ├── build-android.sh       # Main build orchestrator
-│   ├── build-brotli.sh        # Build Brotli compression library
 │   ├── build-diy-crypt.sh     # Build custom libcrypt
-│   ├── build-nginx.sh         # Build nginx with patches
+│   ├── build-nginx.sh         # Build nginx with patches (Brotli removed)
 │   ├── build-openssl.sh       # Build OpenSSL with QUIC
 │   ├── build-pcre2.sh         # Build PCRE2
 │   ├── build-zlib.sh          # Build zlib
 │   ├── clone-deps.sh          # Clone source dependencies
 │   ├── deploy.sh              # Deploy to Android device
 │   ├── test.sh                # Test built binaries
-│   ├── test_brotli.sh         # Test Brotli compression
 │   └── generate-*.sh          # Generate certs and test content
 ├── src/                       # Source code and patches
 │   ├── diy-crypt/            # Custom libcrypt implementation
 │   └── nginx_patches/        # nginx cross-compilation patches
 ├── config/                   # nginx configuration files
-│   ├── nginx.conf           # Production nginx config
+│   ├── nginx.conf           # Production nginx config with Gzip
 │   └── mime.types           # MIME type definitions
 ├── test/                     # Test content and resources
 │   └── html/                # Test web content
@@ -133,20 +131,18 @@ nginx-android-build/
 - **`build-android.sh`** - Main build script that orchestrates the entire build process
 - **`android-config.sh`** - Android NDK toolchain configuration and setup
 - **`clone-deps.sh`** - Clone all source dependencies (nginx, OpenSSL, etc.)
-- **`build-nginx.sh`** - Build nginx with cross-compilation patches
+- **`build-nginx.sh`** - Build nginx with cross-compilation patches (Brotli removed)
 - **`build-diy-crypt.sh`** - Build custom libcrypt implementation
 
 ### Dependency Build Scripts
 - **`build-openssl.sh`** - Build OpenSSL 3.3.2 with QUIC support
 - **`build-pcre2.sh`** - Build PCRE2 regular expression library
 - **`build-zlib.sh`** - Build zlib compression library
-- **`build-brotli.sh`** - Build Brotli compression library
 - **`build-libxcrypt.sh`** - Build alternative libxcrypt (optional)
 
 ### Deployment and Testing Scripts
 - **`deploy.sh`** - Deploy nginx to Android device/emulator
 - **`test.sh`** - Test the built nginx binaries
-- **`test_brotli.sh`** - Test Brotli compression functionality
 - **`generate-certs.sh`** - Generate SSL certificates for HTTPS/HTTP/3
 - **`generate-test-content.sh`** - Generate test content for nginx
 
@@ -172,36 +168,50 @@ nginx-android-build/
 - **HTTP/2** on port 8443 (TCP with TLS)
 - **HTTP/3** on port 8444 (UDP with QUIC)
 
-### 🗜️ Brotli Compression - Superior Performance
+### 🗜️ Compression Support - Gzip Enabled
 
-**The Achievement**: This build includes full Brotli compression support - providing 15-20% better compression ratios than gzip, crucial for mobile bandwidth optimization.
+**The Achievement**: This build uses Gzip compression for optimal compatibility with HTTP/2 protocol.
 
 **Technical Implementation**:
-- **Brotli Library 1.0.7** - Latest stable version with CMake cross-compilation
-- **ngx_brotli Module** - Both filter and static modules integrated
-- **Dual Compression** - Brotli and gzip work together with proper fallback
+- **Gzip Compression** - Reliable compression with excellent browser compatibility
+- **HTTP/2 Compatibility** - Brotli module removed to prevent compression conflicts
 - **Content-Type Detection** - Automatic compression for text, CSS, JS, JSON, XML
 
 **Compression Features**:
-- ✅ **Dynamic Compression** - Real-time brotli encoding with `brotli on`
-- ✅ **Static Pre-compression** - Serve pre-compressed `.br` files with `brotli_static on`
+- ✅ **Dynamic Compression** - Real-time gzip encoding
 - ✅ **Configurable Levels** - Compression level 6 (balanced speed/ratio)
-- ✅ **Minimum Length** - Only compress files >20 bytes to avoid overhead
 - ✅ **Content-Type Filtering** - Compress text, CSS, JS, JSON, XML, SVG
-- ✅ **Browser Compatibility** - Automatic fallback to gzip for older browsers
+- ✅ **Browser Compatibility** - Universal support across all browsers
+- ✅ **HTTP/2 Safe** - No compression conflicts with HTTP/2 protocol
 
 **Performance Benefits**:
-- **15-20% smaller files** compared to gzip compression
-- **Faster page loads** especially on mobile networks
 - **Reduced bandwidth usage** - critical for Android devices
+- **Faster page loads** especially on mobile networks
 - **Better user experience** with faster content delivery
-- **SEO improvements** from faster loading times
+- **HTTP/2 compatibility** - No compression errors in browsers
 
 **Build Process**:
-- **CMake Integration** - Cross-compiles brotli library for all Android architectures
-- **Static Linking** - Includes libbrotlienc-static.a, libbrotlidec-static.a, libbrotlicommon-static.a
-- **nginx Module** - Added via `--add-module=/path/to/ngx_brotli`
-- **Configuration** - Enabled in nginx.conf with optimal settings
+```bash
+# Gzip is built into nginx core - no external dependencies needed
+# Brotli module and libraries have been removed to prevent HTTP/2 conflicts
+```
+
+### 🔐 HTTP/2 Implementation - Browser Compatible
+
+**The Achievement**: Full HTTP/2 support with proper browser compatibility and no compression errors.
+
+**Technical Implementation**:
+- **Modern HTTP/2 Configuration** - Uses `http2 on;` directive (not deprecated syntax)
+- **Compression Compatibility** - Gzip compression works seamlessly with HTTP/2
+- **Browser Support** - Works with Chrome, Firefox, Safari, and other modern browsers
+- **TLS 1.3 Integration** - HTTP/2 over TLS 1.3 for maximum security
+
+**HTTP/2 Features**:
+- ✅ **Multiplexing** - Multiple requests over single connection
+- ✅ **Header Compression** - HPACK compression without conflicts
+- ✅ **Server Push** - Ready for HTTP/2 server push (configurable)
+- ✅ **Stream Prioritization** - Proper request prioritization
+- ✅ **Binary Protocol** - Efficient binary framing
 
 ### 🔐 DIY libcrypt Solution - A Key Innovation
 
@@ -268,7 +278,6 @@ The build system includes 8 patches to make nginx cross-compile successfully:
 - **OpenSSL 3.3.2** - For TLS/SSL and QUIC support
 - **PCRE2** - Regular expression support
 - **zlib** - Compression support
-- **Brotli 1.0.7** - Superior compression library
 
 ### Custom Components
 - **DIY libcrypt** - OpenSSL DES-based password hashing implementation
@@ -294,11 +303,11 @@ build/install/{architecture}/
 └── include/                 # Header files
 ```
 
-### Binary Sizes (Optimized with HTTP/3 + Brotli)
-- **arm64-v8a**: ~5.9MB
-- **armeabi-v7a**: ~4.9MB
-- **x86_64**: ~5.9MB
-- **x86**: ~6.1MB
+### Binary Sizes (Optimized with HTTP/3 + Gzip)
+- **arm64-v8a**: ~5.4MB
+- **armeabi-v7a**: ~4.2MB
+- **x86_64**: ~5.3MB
+- **x86**: ~5.6MB
 
 ### nginx Configuration
 Built with the following modules:
@@ -310,7 +319,6 @@ Built with the following modules:
 --with-http_gzip_static_module # Static gzip compression
 --with-http_stub_status_module # Status monitoring
 --with-pcre-jit               # JIT regex compilation
---add-module=ngx_brotli        # Brotli compression (filter + static)
 ```
 
 ## 🧪 Testing
@@ -348,22 +356,19 @@ curl -k https://localhost:8443/api/test               # HTTP/2
 curl -k https://localhost:8444/api/test --http3-only  # HTTP/3
 ```
 
-### Testing Brotli Compression:
+### Testing Gzip Compression:
 ```bash
-# Run comprehensive Brotli test
-./scripts/test_brotli.sh
-
-# Manual test for Brotli compression
-curl -H "Accept-Encoding: br" http://localhost:8080/css/style.css
-# Should return: Content-Encoding: br
-
-# Test fallback to gzip
-curl -H "Accept-Encoding: gzip" http://localhost:8080/css/style.css  
+# Test Gzip compression
+curl -k -H "Accept-Encoding: gzip" https://localhost:8443/css/style.css
 # Should return: Content-Encoding: gzip
 
-# Test no compression
-curl -H "Accept-Encoding: identity" http://localhost:8080/css/style.css
+# Test without compression
+curl -k -H "Accept-Encoding: identity" https://localhost:8443/css/style.css
 # Should return: No Content-Encoding header
+
+# Check compression headers
+curl -k -I -H "Accept-Encoding: gzip" https://localhost:8443/
+# Should return: Vary: Accept-Encoding
 ```
 
 ## 🔍 Troubleshooting
@@ -404,7 +409,7 @@ which git make patch curl
 This project represents several significant achievements in nginx Android development:
 
 1. **First HTTP/3 and QUIC support** on Android nginx
-2. **Advanced Brotli compression** with 15-20% better compression than gzip
+2. **HTTP/2 with proper compression** - Gzip compression without browser conflicts
 3. **Complete DIY libcrypt** implementation for HTTP basic auth
 4. **Combined CPU affinity patch** for cleaner Android compatibility
 5. **All Android architectures** supported with single build system

@@ -36,17 +36,15 @@ build_nginx_arch() {
     setup_toolchain "$arch"
     verify_toolchain
     
-    # Check if dependencies are built
+    # Check if dependencies are built (removed Brotli dependencies)
     local deps_dir="$ARCH_INSTALL_DIR"
     if [ ! -f "$deps_dir/lib/libssl.a" ] || [ ! -f "$deps_dir/lib/libcrypto.a" ] || \
-       [ ! -f "$deps_dir/lib/libz.a" ] || [ ! -f "$deps_dir/lib/libpcre2-8.a" ] || \
-       [ ! -f "$deps_dir/lib/libbrotlienc-static.a" ] || [ ! -f "$deps_dir/lib/libbrotlidec-static.a" ]; then
+       [ ! -f "$deps_dir/lib/libz.a" ] || [ ! -f "$deps_dir/lib/libpcre2-8.a" ]; then
         echo -e "${RED}Error: Dependencies not found for $arch${NC}"
         echo "Please build dependencies first:"
         echo "  ./scripts/build-openssl.sh"
         echo "  ./scripts/build-zlib.sh"
         echo "  ./scripts/build-pcre2.sh"
-        echo "  ./scripts/build-brotli.sh"
         exit 1
     fi
     
@@ -130,9 +128,8 @@ build_nginx_arch() {
         --with-cc="$CC" \
         --with-cpp="$CC -E" \
         --with-cc-opt="$CFLAGS -I$deps_dir/include" \
-        --with-ld-opt="$LDFLAGS -L$deps_dir/lib -lbrotlienc-static -lbrotlidec-static -lbrotlicommon-static" \
+        --with-ld-opt="$LDFLAGS -L$deps_dir/lib" \
         --prefix=/data/local/tmp/nginx \
-        --add-module="$PROJECT_ROOT/src/ngx_brotli" \
         --with-http_ssl_module \
         --with-http_v2_module \
         --with-http_v3_module \
