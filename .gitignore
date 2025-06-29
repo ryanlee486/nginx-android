@@ -95,7 +95,6 @@ coverage/
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
-Makefile
 *.cmake
 
 # Autotools
